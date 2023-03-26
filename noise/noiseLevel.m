@@ -9,9 +9,6 @@ function out = noiseLevel(img)
     %create the denoised image
     denoisedI = denoiseImage(img,net);
 
-    %calculate the difference between the denoised image and the original
-    %input image
-    diff = img - denoisedI;
-
-    %get the average of the difference
-    out = mean(diff(:));
+    %calculate the mean square error to measure the difference between the
+    %denoised image and the originial input image
+    out = immse(img(:), denoisedI(:));
