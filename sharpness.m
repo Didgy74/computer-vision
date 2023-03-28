@@ -41,8 +41,15 @@ end
  S1 = sum(brenner, "all");
  S2 = sum(brenner2, "all");
 
+% Calculate average Brenner scores
+S1_avg = S1/(M*N);
+S2_avg = S2/(M*N);
+
  % Find the difference in Brenner focus measures
  S3 = S1-S2;
+
+ % Find the difference in average Brenner focus measures:
+ S3_avg = S3/(M*N);
 
  % An image with a high Brenner score generally is more in-focus
  % than an image with a lower Brenner score. The image with a higher
