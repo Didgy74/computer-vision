@@ -1,4 +1,4 @@
-function output = CV_SaturationDiffAbs(original,distorted)
+function output = CV_MeanSaturationDiffAbs(original,distorted)
 %CV_SATURATION Summary of this function goes here
 %   Detailed explanation goes here
     
