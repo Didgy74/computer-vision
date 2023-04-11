@@ -3,28 +3,12 @@ function output = sharpness(original, distorted)
 % The program aims to calculate the sharpness of an image use the Brenner's
 % focus measure. The measure must be used on grayscale images.
 %
-%   srcImage  -   the matrix representing the source image
-%   sharpVal  -   calculated sharpness of image
-
-% Open source images
-%I = imread (original);         
-%I2 = imread(distorted);
-
-%figure ('Name','Colour images');
-%subplot (1,2,1);    imshow(I);      title('Original Colour image');
-%subplot (1,2,2);    imshow(I2);     title('Distorted Colour image');
-
-% Convert images to grayscale
-%J = rgb2gray(I);                    
-%J2= rgb2gray(I2); 
+%   original    -   The matrix representing the source image
+%   distorted   -   The matrix representing the distorted image
+%   output      -   calculated difference in sharpness between images
 
 J = original;
 J2 = distorted;
-
-% Plot the images
-%figure ('Name', 'Grayscale Versions');
-%subplot (1,2,1);    imshow(J);      title('Original Grayscale image');
-%subplot (1,2,2);    imshow(J2);     title('Distorted Grayscale image');
 
 [M, N] = size(J);           % M is the number of rows, N is columns
 
@@ -35,8 +19,8 @@ brenner2 = zeros(M,N);
 % Calculate the Brenner focus measure for each image
 for x = 1:M
     for y = 1:N-2
-        brenner(x,y) = (J(x, y+2) - J(x,y)).^2;
-        brenner2(x,y) = (J2(x, y+2) - J2(x,y)).^2;
+        brenner(y,x) = (J(y+2, x) - J(y,x)).^2;
+        brenner2(y,x) = (J2(y+2,x) - J2(y,x)).^2;
     end
 end
 
@@ -54,7 +38,7 @@ S2_avg = S2/(M*N);
  % Find the difference in average Brenner focus measures:
  S3_avg = S3/(M*N);
 
- output = S3;   % Records output value
+ output = S3_avg;   % Records output value
 
  % An image with a high Brenner score generally is more in-focus
  % than an image with a lower Brenner score. The image with a higher
