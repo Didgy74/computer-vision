@@ -67,24 +67,47 @@ function [uniformityScore] = contrast_score(img1,img2)
 end
 
 function output = mean_saturation(img)
+	%% Calculate the mean saturation of an image. 
+	% Returns a single double in the range [0, 1].
+	
     hsv = rgb2hsv(img);
+	% Extract all the saturations values.
     all_sat = hsv(:, :, 2);
     output = mean(all_sat, 'all');
 end
 
 function output = mean_saturation_diff_abs(original,distorted)
+	%% Calculates the distance (absolute difference) between
+	% the mean saturation of two images.
+	%
+	% Returns a double.
+	
     orig_mean_sat = CV_MeanSaturation(original);
     distorted_mean_sat = CV_MeanSaturation(distorted);
     output = abs(distorted_mean_sat - orig_mean_sat);
 end
 
 function output = mean_saturation_ratio(original,distorted)
+ 	%% Calculates the ratio between
+	% the mean saturation of two images.
+	%
+	% Returns a double.
+	
     orig_mean_sat = CV_MeanSaturation(original);
     distorted_mean_sat = CV_MeanSaturation(distorted);
     output = distorted_mean_sat / orig_mean_sat;
+	
+	% We can always assume the distorted is worse, and so we
+	% guarantee any deviation from the original results in a lower score.
+	if output > 1 
+		output = 1 / output;
+	end
 end
 
 function [satRange] = cv_imsatrange(inputImg)
+	%% Calculates the range of saturation shades in the given image.
+	% Returns a uint8.
+
     asHsv = rgb2hsv(inputImg);
     sat = asHsv(:, :, 2);
     
@@ -98,6 +121,12 @@ function [output] = saturation_range_ratio(orig,distorted)
     originalRange = cv_imsatrange(orig);
     distortedRange = cv_imsatrange(distorted);
     output = double(distortedRange) / double(originalRange);
+	
+	% We can always assume the distorted is worse, and so we
+	% guarantee any deviation from the original results in a lower score.
+	if output > 1 
+		output = 1 / output;
+	end
 end
 
 function output = sharpness(original, distorted)
