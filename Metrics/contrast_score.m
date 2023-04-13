@@ -1,4 +1,4 @@
-function [uniformityScore] = contrastScore(img1,img2)
+function [uniformityScore] = contrast_score(img1,img2)
 %This function returns 2 values as contrast is decided by uniform
 %distribution
 %and difference spread/span of intensities

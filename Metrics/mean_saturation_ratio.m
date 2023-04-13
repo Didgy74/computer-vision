@@ -1,4 +1,4 @@
-function output = CV_MeanSaturationRatio(original,distorted)
+function output = mean_saturation_ratio(original,distorted)
     orig_mean_sat = CV_MeanSaturation(original);
     distorted_mean_sat = CV_MeanSaturation(distorted);
 

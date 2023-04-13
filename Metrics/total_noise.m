@@ -1,4 +1,4 @@
-function score = totalNoise(~, dis_img)
+function score = total_noise(~, dis_img)
     %Load the pretrained denoising convolutional neural network, 'DnCNN'.
     net = denoisingNetwork('DnCNN'); 
 

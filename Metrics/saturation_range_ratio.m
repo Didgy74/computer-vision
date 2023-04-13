@@ -1,4 +1,4 @@
-function [output] = CV_SaturationRangeRatio(orig,distorted)
+function [output] = saturation_range_ratio(orig,distorted)
     originalRange = cv_imsatrange(orig);
     distortedRange = cv_imsatrange(distorted);
 
